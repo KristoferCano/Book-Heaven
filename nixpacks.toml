@@ -1,13 +1,13 @@
 [build]
-# Set backend as the root for the Python buildpack to work correctly
+# Set backend as the root - this is a PHP/Laravel application only
 root = "backend"
 
 [phases.build]
-# Install PHP dependencies
+# Install only PHP dependencies (no Node.js needed)
 cmds = ["composer install --optimize-autoloader --no-dev --no-ansi --no-interaction"]
 
 [phases.release]
-# Run migrations and cache
+# Run Laravel migrations and cache commands
 cmds = ["php artisan migrate --force --no-ansi && php artisan cache:clear && php artisan config:cache && php artisan route:cache"]
 
 [[processes]]
