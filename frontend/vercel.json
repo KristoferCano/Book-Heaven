@@ -1,43 +1,4 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "redirects": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html",
-      "statusCode": 200
-    }
-  ],
-  "headers": [
-    {
-      "source": "/js/:path*",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/css/:path*",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    }
-  ]
-}
-  "rewrites": [
-    {
-      "source": "/api/:path*",
-      "destination": "http://localhost:8000/api/:path*"
-    },
-    {
-      "source": "/storage/:path*",
-      "destination": "http://localhost:8000/storage/:path*"
-    }
-  ],
-  "functions": {}
+  "outputDirectory": "dist"
 }
