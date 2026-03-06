@@ -1,0 +1,26 @@
+[build]
+# Configurar backend como directorio raíz
+root = "backend"
+
+[phases.build]
+# Instalar dependencias PHP
+cmds = ["composer install --optimize-autoloader --no-dev"]
+
+[phases.release]
+# Ejecutar migraciones y cachés
+cmds = [
+  "php artisan migrate --force",
+  "php artisan cache:clear",
+  "php artisan config:cache",
+  "php artisan route:cache"
+]
+
+[[processes]]
+# Proceso web principal
+name = "web"
+cmd = "vendor/bin/heroku-php-apache2 public/ -F fpm_config.ini"
+
+[[processes]]
+# Worker para colas (opcional)
+name = "queue"
+cmd = "php artisan queue:work --sleep=3 --tries=3 --max-time=3600"
