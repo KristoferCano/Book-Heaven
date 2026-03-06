@@ -1,26 +1,20 @@
 [build]
-# Configurar backend como directorio raíz
+# Direcrorio raíz del proyecto
 root = "backend"
 
 [phases.build]
-# Instalar dependencias PHP
-cmds = ["composer install --optimize-autoloader --no-dev"]
+# Build PHP dependencies
+dependsOn = ["setup"]
+cmds = ["composer install --optimize-autoloader --no-dev --no-ansi --no-interaction"]
 
-[phases.release]
-# Ejecutar migraciones y cachés
-cmds = [
-  "php artisan migrate --force",
-  "php artisan cache:clear",
-  "php artisan config:cache",
-  "php artisan route:cache"
-]
+[phases.setup]
+# Setup PHP environment
+cmds = ["php --version && composer --version"]
 
-[[processes]]
-# Proceso web principal
-name = "web"
+[processes.web]
+# Web server process
 cmd = "vendor/bin/heroku-php-apache2 public/ -F fpm_config.ini"
 
-[[processes]]
-# Worker para colas (opcional)
-name = "queue"
-cmd = "php artisan queue:work --sleep=3 --tries=3 --max-time=3600"
+[processes.release]
+# Migration and caching process (runs once during deployment)
+cmd = "php artisan migrate --force --no-ansi && php artisan cache:clear && php artisan config:cache && php artisan route:cache"
