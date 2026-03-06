@@ -1,20 +1,15 @@
 [build]
-# Direcrorio raíz del proyecto
+# Set backend as the root for the Python buildpack to work correctly
 root = "backend"
 
 [phases.build]
-# Build PHP dependencies
-dependsOn = ["setup"]
+# Install PHP dependencies
 cmds = ["composer install --optimize-autoloader --no-dev --no-ansi --no-interaction"]
 
-[phases.setup]
-# Setup PHP environment
-cmds = ["php --version && composer --version"]
+[phases.release]
+# Run migrations and cache
+cmds = ["php artisan migrate --force --no-ansi && php artisan cache:clear && php artisan config:cache && php artisan route:cache"]
 
-[processes.web]
-# Web server process
+[[processes]]
+name = "web"
 cmd = "vendor/bin/heroku-php-apache2 public/ -F fpm_config.ini"
-
-[processes.release]
-# Migration and caching process (runs once during deployment)
-cmd = "php artisan migrate --force --no-ansi && php artisan cache:clear && php artisan config:cache && php artisan route:cache"
