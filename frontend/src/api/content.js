@@ -36,8 +36,14 @@ export const contentAPI = {
   deleteAudiobook: (id) => apiClient.delete(`/content/audiolibros/${id}`),
 
   // Servir contenido seguro
-  getPdfUrl: (type, id) => `/api/content/serve-pdf/${type}/${id}`,
-  getAudioUrl: (id) => `/api/content/serve-audio/${id}`,
+  getPdfUrl: (type, id) => {
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+    return `${apiUrl}/content/serve-pdf/${type}/${id}`;
+  },
+  getAudioUrl: (id) => {
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+    return `${apiUrl}/content/serve-audio/${id}`;
+  },
 
   // Estadísticas
   getContentStats: () => apiClient.get("/admin/content/stats"),

@@ -23,7 +23,8 @@ function CreateBookModal({ isOpen, onClose, onCreate }) {
         data.append('pdf', formData.pdf)
 
         try {
-            const response = await fetch('/api/content/libros', {
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+            const response = await fetch(`${apiUrl}/content/libros`, {
                 method: 'POST',
                 body: data // ⚠️ NO headers aquí
             })

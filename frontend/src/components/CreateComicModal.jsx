@@ -23,7 +23,8 @@ function CreateComicModal({ isOpen, onClose, onCreate }) {
         data.append('pdf', formData.pdf)
 
         try {
-            const response = await fetch('/api/content/comics', {
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+            const response = await fetch(`${apiUrl}/content/comics`, {
                 method: 'POST',
                 body: data
             })

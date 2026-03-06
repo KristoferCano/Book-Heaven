@@ -39,7 +39,8 @@ const useUserManagement = () => {
                 ...(role && { role }),
             })
 
-            const response = await fetch(`/api/admin/users?${params}`, {
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api'
+            const response = await fetch(`${apiUrl}/admin/users?${params}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Accept': 'application/json',
@@ -76,7 +77,8 @@ const useUserManagement = () => {
      */
     const fetchRoles = useCallback(async () => {
         try {
-            const response = await fetch('/api/admin/roles', {
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api'
+            const response = await fetch(`${apiUrl}/admin/roles`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Accept': 'application/json',
@@ -107,7 +109,8 @@ const useUserManagement = () => {
             setLoading(true)
             setError(null)
 
-            const response = await fetch('/api/admin/users', {
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api'
+            const response = await fetch(`${apiUrl}/admin/users`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -147,7 +150,8 @@ const useUserManagement = () => {
             setLoading(true)
             setError(null)
 
-            const response = await fetch(`/api/admin/users/${userId}`, {
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api'
+            const response = await fetch(`${apiUrl}/admin/users/${userId}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -187,7 +191,8 @@ const useUserManagement = () => {
             setLoading(true)
             setError(null)
 
-            const response = await fetch(`/api/admin/users/${userId}`, {
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api'
+            const response = await fetch(`${apiUrl}/admin/users/${userId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`,

@@ -14,7 +14,8 @@ function Dashboard() {
         setIsRefreshing(true)
         
         try {
-            const response = await fetch('/api/dashboard/stats')
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+            const response = await fetch(`${apiUrl}/dashboard/stats`)
             
             if (!response.ok) {
                 throw new Error('No se pudo obtener los datos del dashboard')

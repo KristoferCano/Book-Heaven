@@ -180,7 +180,8 @@ function RegisterModal({ isOpen, onClose, onOpenLogin, onError, registerFunction
     const checkEmailExists = async (email) => {
         try {
             setEmailChecking(true)
-            const res = await fetch('/api/auth/check-email', {
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+            const res = await fetch(`${apiUrl}/auth/check-email`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                 body: JSON.stringify({ email: email.trim() })

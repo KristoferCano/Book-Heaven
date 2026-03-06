@@ -16,7 +16,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
  * Auto-refresh cada 30 segundos
  */
 const useReadingAnalytics = (
-  endpoint = "/api/admin/reading-analytics",
+  endpoint = "/reading-analytics",
   refreshIntervalSeconds = 30,
 ) => {
   const [data, setData] = useState(null);
@@ -31,8 +31,10 @@ const useReadingAnalytics = (
         setError(null);
 
         const token = localStorage.getItem("auth_token");
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+        const fullEndpoint = `${apiUrl}/admin${endpoint}`;
 
-        const response = await fetch(endpoint, {
+        const response = await fetch(fullEndpoint, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

@@ -26,8 +26,11 @@ export const setupDevAuth = async () => {
     try {
         console.log('🔐 [Dev Mode] Intentando auto-login...');
         
-        // Ajusta la URL a tu host base si es necesario (ej: http://localhost:8000)
-        const response = await fetch('/api/auth/login', {
+        // Usar la URL base de la API desde variables de entorno
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+        const loginUrl = `${apiUrl}/auth/login`;
+        
+        const response = await fetch(loginUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

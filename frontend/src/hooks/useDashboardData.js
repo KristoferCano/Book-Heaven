@@ -35,9 +35,11 @@ const useDashboardData = (refreshIntervalSeconds = 30) => {
       // El token está guardado en localStorage desde useAuth context
       const token = localStorage.getItem("auth_token");
       console.log("🔐 Token encontrado:", !!token);
-      console.log("📡 Intentando conectar con /api/admin/dashboard");
+      
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+      console.log("📡 Intentando conectar con", `${apiUrl}/admin/dashboard`);
 
-      const response = await fetch("/api/admin/dashboard", {
+      const response = await fetch(`${apiUrl}/admin/dashboard`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

@@ -49,7 +49,8 @@ export const useUnifiedContent = (initialCategories = ['libro', 'manga', 'comic'
 
             const queryString = new URLSearchParams(cleanParams).toString();
             
-            const response = await fetch(`/api/content/unified?${queryString}`, {
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+            const response = await fetch(`${apiUrl}/content/unified?${queryString}`, {
                 signal: abortControllerRef.current.signal,
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,

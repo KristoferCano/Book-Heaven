@@ -23,7 +23,8 @@ function CreateMangaModal({ isOpen, onClose, onCreate }) {
         data.append('pdf', formData.pdf)
 
         try {
-            const response = await fetch('/api/content/mangas', {
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+            const response = await fetch(`${apiUrl}/content/mangas`, {
                 method: 'POST',
                 body: data
             })
